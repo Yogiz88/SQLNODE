@@ -1,21 +1,24 @@
-//import pg package
+// 1. import pg package
 import pg from "pg";
 
-// Get the connection string
+// 2. Get the connection string
 const connectionString = process.env.DB_CONNECTION_STRING;
 
-// Create a new pool instance
+// 3. Create a new pool instance
 const pool = new pg.Pool({
   connectionString,
 });
 
-// Send Query
-// await pool.query("DROP Table authors");
+// 4. SENDING QUERIES
 
-// await pool.query("DROP Table books");
+// Sending Query for Deleting/Droping Table authors
+await pool.query("DROP Table authors");
 
+// Sending Query for Deleting/Droping Table books
+await pool.query("DROP Table books");
+
+// Sending Query for Deleting/Droping Table author_book
 await pool.query("DROP Table author_book");
-// console.log("Successful connection!");
 
-// Close the connection
+// 5. Close the connection
 await pool.end();
