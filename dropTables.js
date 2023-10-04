@@ -10,8 +10,11 @@ const pool = new pg.Pool({
 });
 
 // Send Query
-await pool.query("DROP Table authors");
+// await pool.query("DROP Table authors");
 
+// await pool.query("DROP Table books");
+
+await pool.query("DROP Table author_book");
 // console.log("Successful connection!");
 
 // Close the connection

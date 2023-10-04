@@ -9,11 +9,29 @@ const pool = new pg.Pool({
   connectionString,
 });
 
+// Creating Authors table
 const query = {
-  text: "CREATE TABLE authors ( id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY, first_name VARCHAR(255) NOT NULL, last_name VARCHAR(255) NOT NULL );"
+  text: "CREATE TABLE IF NOT EXISTS authors ( id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY, first_name VARCHAR(255) NOT NULL, last_name VARCHAR(255) NOT NULL );",
 };
+
 // Send Query
 await pool.query(query);
+
+// Creating Books table
+const queryBooks = {
+  text: "CREATE TABLE IF NOT EXISTS books (id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,title VARCHAR(255) NOT NULL, published_date DATE);",
+};
+
+// Send Query
+await pool.query(queryBooks);
+
+// Creating author_book table
+const queryAutBook = {
+  text: "CREATE TABLE IF NOT EXISTS author_book (author_id INT REFERENCES authors(id), book_id INT REFERENCES books(id),PRIMARY KEY (author_id, book_id));",
+};
+
+// Send Query
+await pool.query(queryAutBook);
 
 // console.log("Successful connection!");
 
