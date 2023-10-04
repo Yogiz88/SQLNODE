@@ -10,9 +10,9 @@ const pool = new pg.Pool({
 });
 
 // Send Query
-const data = await pool.query("SELECT * FROM authors;");
-const rows = data.rows;
-console.log(rows);
+await pool.query("DROP Table authors");
+
+// console.log("Successful connection!");
 
 // Close the connection
 await pool.end();
