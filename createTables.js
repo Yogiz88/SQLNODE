@@ -10,17 +10,10 @@ const pool = new pg.Pool({
 });
 
 const query = {
-  text: "INSERT INTO users(name, email) VALUES($1, $2)",
-  values: ["brianc", "brian.m.carlson@gmail.com"],
+  text: "CREATE TABLE authors ( id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY, first_name VARCHAR(255) NOT NULL, last_name VARCHAR(255) NOT NULL );"
 };
 // Send Query
-await pool.query(
-  "CREATE TABLE authors (" +
-    "id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY," +
-    "first_name VARCHAR(255) NOT NULL," +
-    "last_name VARCHAR(255) NOT NULL" +
-    +");"
-);
+await pool.query(query);
 
 // console.log("Successful connection!");
 
