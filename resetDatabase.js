@@ -20,12 +20,12 @@ const pool = new pg.Pool({
   connectionString,
 });
 
-// dropTable_Author_Book();
-// dropTable_Authors();
-// dropTable_Books();
+await dropTable_Author_Book();
+await dropTable_Authors();
+await dropTable_Books();
 
-createTable_Authors();
-createTable_Books();
-createTable_Author_Book();
+await createTable_Authors();
+await createTable_Books();
+await createTable_Author_Book();
 
 await pool.end();
