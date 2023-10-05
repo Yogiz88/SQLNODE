@@ -11,20 +11,28 @@ const pool = new pg.Pool({
 
 // 4. SENDING QUERIES
 
-// Creating authors table
-await pool.query(
-  "CREATE TABLE IF NOT EXISTS authors ( id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY, first_name VARCHAR(255) NOT NULL, last_name VARCHAR(255) NOT NULL );"
-);
+export async function createTable_Authors() {
+  // Creating authors table
+  await pool.query(
+    "CREATE TABLE IF NOT EXISTS authors ( id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY, first_name VARCHAR(255) NOT NULL, last_name VARCHAR(255) NOT NULL );"
+  );
+}
+export async function createTable_Books() {
+  // Creating books table
+  await pool.query(
+    "CREATE TABLE IF NOT EXISTS books (id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,title VARCHAR(255) NOT NULL, published_date DATE);"
+  );
+}
 
-// Creating books table
-await pool.query(
-  "CREATE TABLE IF NOT EXISTS books (id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,title VARCHAR(255) NOT NULL, published_date DATE);"
-);
+export async function createTable_Author_Book() {
+  // Creating author_book table
+  await pool.query(
+    "CREATE TABLE IF NOT EXISTS author_book (author_id INT REFERENCES authors(id), book_id INT REFERENCES books(id),PRIMARY KEY (author_id, book_id));"
+  );
+}
 
-// Creating author_book table
-await pool.query(
-  "CREATE TABLE IF NOT EXISTS author_book (author_id INT REFERENCES authors(id), book_id INT REFERENCES books(id),PRIMARY KEY (author_id, book_id));"
-);
+// // 5. Close the connection
+// await pool.end();
 
 // // Creating Authors table
 // const query = {
@@ -49,6 +57,3 @@ await pool.query(
 
 // // Send Query
 // await pool.query(queryAutBook);
-
-// 5. Close the connection
-await pool.end();

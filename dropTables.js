@@ -11,14 +11,20 @@ const pool = new pg.Pool({
 
 // 4. SENDING QUERIES
 
-// Sending Query for Deleting/Droping Table authors
-await pool.query("DROP Table authors");
+export async function dropTable_Author_Book() {
+  // Sending Query for Deleting/Droping Table author_book
+  await pool.query("DROP Table IF EXISTS author_book");
+}
 
-// Sending Query for Deleting/Droping Table books
-await pool.query("DROP Table books");
+export async function dropTable_Authors() {
+  // Sending Query for Deleting/Droping Table authors
+  await pool.query("DROP Table IF EXISTS authors");
+}
 
-// Sending Query for Deleting/Droping Table author_book
-await pool.query("DROP Table author_book");
+export async function dropTable_Books() {
+  // Sending Query for Deleting/Droping Table books
+  await pool.query("DROP Table IF EXISTS books");
+}
 
-// 5. Close the connection
-await pool.end();
+// // 5. Close the connection
+// await pool.end();
